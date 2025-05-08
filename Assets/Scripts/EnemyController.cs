@@ -18,6 +18,8 @@ public class EnemyController : MonoBehaviour
     float nextActivation;
     float frameInterval;
 
+    private EnemyType enemyType;
+
     Dictionary<int, Vector2> path = new Dictionary<int, Vector2>()
     {
         { 0, new Vector2(4,2)},
@@ -66,6 +68,7 @@ public class EnemyController : MonoBehaviour
         Enemy enemy = EnemyCollection.enemies[type];
         hp = enemy.hp;
         speed = enemy.moveSpeed;
+        enemyType = type;
 
         tileProgressPerFrame = 1f / 600f * speed;
 
@@ -104,12 +107,28 @@ public class EnemyController : MonoBehaviour
 
         currentProgress += tileProgressPerFrame;
         Vector2 enemyPosition = Vector2.Lerp(startPosition, nextPosition, currentProgress);
-        enemyPosition += new Vector2(15, -15);
+        enemyPosition += new Vector2(60, -60);
         GetComponent<RectTransform>().anchoredPosition = enemyPosition;
         if (currentProgress >= 1.0f)
         {
             currentProgress = 0f;
             currentStep++;
         }
+
+        if (currentStep == path.Count)
+        {
+            GameHandler.instance.lives--;
+            Destroy(this.gameObject);
+        }
+    }
+
+    public EnemyType GetEnemyType()
+    {
+        return enemyType;
+    }
+
+    public int GetCurrentStep()
+    {
+        return currentStep;
     }
 }
