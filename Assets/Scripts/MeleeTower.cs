@@ -98,10 +98,7 @@ public class MeleeTower : TowerController
     private void StunEnemy(EnemyController enemy)
     {
         stunnedEnemies.Add(enemy);
-        // You can add visual effect for stunned enemy here
-        // For example, change the enemy color or add a stun animation
 
-        // Schedule the enemy to be unstunned after stunDuration
         StartCoroutine(UnstunEnemyAfterDelay(enemy, stunDuration));
     }
 
@@ -128,7 +125,6 @@ public class MeleeTower : TowerController
         }
     }
 
-    // Override the FindEnemiesInRange method to use a more accurate AOE radius
     protected override void FindEnemiesInRange()
     {
         enemiesInRange.Clear();

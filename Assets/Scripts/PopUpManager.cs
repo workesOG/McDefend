@@ -56,4 +56,3 @@ public class PopUpData
     public string title;
     public string content;
 }
-
